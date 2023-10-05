@@ -7,12 +7,20 @@ stu::string::string() : str{nullptr}
 
 stu::string::string(const stu::string &other)
 {
+    if (other.str == nullptr) {
+        str = nullptr;
+        return;
+    }
     str = new char[strlen(other.str) + 1];
     std::strcpy(str, other.str);
 }
 
 stu::string::string(const char *other)
 {
+    if (other == nullptr) {
+        str = nullptr;
+        return;
+    }
     str = new char[strlen(other) + 1];
     std::strcpy(str, other);
 }
@@ -26,6 +34,11 @@ std::ostream &operator<<(std::ostream &os, const stu::string &other)
 {
     os << other.c_str();
     return os;
+}
+
+stu::string::~string()
+{
+    delete[] str;
 }
 
 stu::string &stu::string::operator=(const stu::string &other)
